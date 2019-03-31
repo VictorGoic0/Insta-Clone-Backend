@@ -10,6 +10,17 @@ module.exports = {
 
 async function find() {
   const posts = await db("posts");
+  for (post of posts) {
+    post.comments = await db("comments")
+      .select({
+        id: "comments.id",
+        text: "comments.text"
+      })
+      .where({
+        "comments.post_id": post.id
+      })
+      .limit(3);
+  }
   return posts;
 }
 
@@ -17,6 +28,14 @@ async function findById(id) {
   const post = await db("posts")
     .where({ id })
     .first();
+  post.comments = await db("comments")
+    .select({
+      id: "comments.id",
+      text: "comments.text"
+    })
+    .where({
+      "comments.post_id": id
+    });
   return post;
 }
 
