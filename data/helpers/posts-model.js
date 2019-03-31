@@ -9,7 +9,17 @@ module.exports = {
 };
 
 async function find() {
-  const posts = await db("posts");
+  const posts = await db("posts")
+    .select({
+      id: "posts.id",
+      user_id: "posts.user_id",
+      imageUrl: "posts.imageURL",
+      likes: "posts.likes",
+      username: "profiles.username",
+      thumbnailUrl: "profiles.thumbnailUrl",
+      description: "posts.description"
+    })
+    .innerJoin("profiles", "posts.user_id", "profiles.id");
   for (post of posts) {
     post.comments = await db("comments")
       .select({
@@ -28,7 +38,17 @@ async function find() {
 
 async function findById(id) {
   const post = await db("posts")
-    .where({ id })
+    .select({
+      id: "posts.id",
+      user_id: "posts.user_id",
+      imageUrl: "posts.imageURL",
+      likes: "posts.likes",
+      username: "profiles.username",
+      thumbnailUrl: "profiles.thumbnailUrl",
+      description: "posts.description"
+    })
+    .innerJoin("profiles", "posts.user_id", "profiles.id")
+    .where({ "posts.id": id })
     .first();
   post.comments = await db("comments")
     .select({
