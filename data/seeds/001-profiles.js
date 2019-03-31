@@ -58,15 +58,21 @@ exports.seed = function(knex, Promise) {
     },
     {
       username: "shroud",
-      password: "password"
+      password: "password",
+      thumbnailUrl:
+        "https://pbs.twimg.com/profile_images/986674209106550784/mbmmyb6Z_400x400.jpg"
     },
     {
       username: "summit1g",
-      password: "password"
+      password: "password",
+      thumbnailUrl:
+        "https://pbs.twimg.com/profile_images/825045721573314561/efRvTGlf_400x400.jpg"
     },
     {
       username: "t1alpha",
-      password: "password"
+      password: "password",
+      thumbnailUrl:
+        "https://pbs.twimg.com/profile_images/693320968811380736/g3cD_R1A_400x400.png"
     }
   ]);
 };
