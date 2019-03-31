@@ -20,14 +20,12 @@ exports.up = function(knex, Promise) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.string("imageUrl", 256);
+      table.string("description", 500);
       table.integer("likes");
     })
     .createTable("comments", table => {
       table.increments();
-      table
-        .string("text", 500)
-        .notNullable()
-        .unique();
+      table.string("text", 500).notNullable();
       table
         .integer("post_id")
         .unsigned()

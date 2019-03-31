@@ -26,6 +26,7 @@ exports.seed = function(knex, Promise) {
       user_id: 8
     },
     {
+      text: "What a setup",
       post_id: 2,
       user_id: 9
     },
@@ -66,7 +67,8 @@ exports.seed = function(knex, Promise) {
     },
     {
       text: "Can't wait to try it!",
-      post_id: 15
+      post_id: 4,
+      user_id: 15
     }
   ]);
 };
