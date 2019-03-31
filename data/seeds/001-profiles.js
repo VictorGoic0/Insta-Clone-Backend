@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-  return knex("projects").insert([
+  return knex("profiles").insert([
     {
       username: "philzcoffee",
       password: "password"
@@ -34,6 +34,10 @@ exports.seed = function(knex, Promise) {
     },
     {
       username: "themexican_leprechaun",
+      password: "password"
+    },
+    {
+      username: "dennis_futbol",
       password: "password"
     },
     {
