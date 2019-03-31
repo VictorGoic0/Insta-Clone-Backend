@@ -16,8 +16,7 @@ async function find() {
       imageUrl: "posts.imageURL",
       likes: "posts.likes",
       username: "profiles.username",
-      thumbnailUrl: "profiles.thumbnailUrl",
-      description: "posts.description"
+      thumbnailUrl: "profiles.thumbnailUrl"
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id");
   for (post of posts) {
@@ -25,7 +24,8 @@ async function find() {
       .select({
         id: "comments.id",
         username: "profiles.username",
-        text: "comments.text"
+        text: "comments.text",
+        thumbnailUrl: "profiles.thumbnailUrl"
       })
       .innerJoin("profiles", "comments.user_id", "profiles.id")
       .where({
@@ -54,7 +54,8 @@ async function findById(id) {
     .select({
       id: "comments.id",
       username: "profiles.username",
-      text: "comments.text"
+      text: "comments.text",
+      thumbnailUrl: "profiles.thumbnailUrl"
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
     .where({
