@@ -14,8 +14,10 @@ async function find() {
     post.comments = await db("comments")
       .select({
         id: "comments.id",
+        username: "profiles.username",
         text: "comments.text"
       })
+      .innerJoin("profiles", "comments.user_id", "profiles.id")
       .where({
         "comments.post_id": post.id
       })
@@ -31,8 +33,10 @@ async function findById(id) {
   post.comments = await db("comments")
     .select({
       id: "comments.id",
+      username: "profiles.username",
       text: "comments.text"
     })
+    .innerJoin("profiles", "comments.user_id", "profiles.id")
     .where({
       "comments.post_id": id
     });
