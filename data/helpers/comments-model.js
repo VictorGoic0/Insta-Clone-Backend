@@ -15,7 +15,14 @@ async function find(id) {
 
 async function findById(id) {
   const comment = await db("comments")
-    .where({ id })
+    .select({
+      id: "comments.id",
+      text: "comments.text",
+      username: "profiles.username",
+      thumbnailUrl: "profiles.thumbnailUrl"
+    })
+    .innerJoin("profiles", "comments.user_id", "profiles.id")
+    .where({ "comments.id": id })
     .first();
   return comment;
 }
@@ -23,16 +30,7 @@ async function findById(id) {
 async function create(item) {
   const [id] = await db("comments").insert(item);
   if (id) {
-    const comment = await db("comments")
-      .select({
-        id: "comments.id",
-        text: "comments.text",
-        username: "profiles.username",
-        thumbnailUrl: "profiles.thumbnailUrl"
-      })
-      .innerJoin("profiles", "comments.user_id", "profiles.id")
-      .where({ "comments.id": id })
-      .first();
+    const comment = await findById(id);
     return comment;
   }
 }
