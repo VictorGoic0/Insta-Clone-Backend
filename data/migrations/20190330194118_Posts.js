@@ -7,7 +7,9 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .unique();
       table.string("password", 20).notNullable();
-      table.string("thumbnailUrl", 256);
+      table
+        .string("thumbnailUrl", 256)
+        .defaultTo("https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg");
     })
     .createTable("posts", table => {
       table.increments();
