@@ -16,7 +16,6 @@ exports.up = function(knex, Promise) {
       table
         .integer("user_id")
         .unsigned()
-        .notNullable()
         .references("profiles.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
@@ -30,14 +29,12 @@ exports.up = function(knex, Promise) {
       table
         .integer("post_id")
         .unsigned()
-        .notNullable()
         .references("posts.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table
         .integer("user_id")
         .unsigned()
-        .notNullable()
         .references("profiles.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
