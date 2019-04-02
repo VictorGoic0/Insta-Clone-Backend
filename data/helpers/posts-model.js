@@ -13,7 +13,7 @@ async function find() {
     .select({
       id: "posts.id",
       user_id: "posts.user_id",
-      imageUrl: "posts.imageURL",
+      imageUrl: "posts.imageUrl",
       likes: "posts.likes",
       username: "profiles.username",
       thumbnailUrl: "profiles.thumbnailUrl"
@@ -41,7 +41,7 @@ async function findById(id) {
     .select({
       id: "posts.id",
       user_id: "posts.user_id",
-      imageUrl: "posts.imageURL",
+      imageUrl: "posts.imageUrl",
       likes: "posts.likes",
       username: "profiles.username",
       thumbnailUrl: "profiles.thumbnailUrl",
