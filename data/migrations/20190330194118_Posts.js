@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
         .string("username", 128)
         .notNullable()
         .unique();
-      table.string("password", 20).notNullable();
+      table.string("password", 30).notNullable();
       table
         .string("thumbnailUrl", 256)
         .defaultTo("https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg");
@@ -17,6 +17,7 @@ exports.up = function(knex, Promise) {
         .integer("user_id")
         .unsigned()
         .references("profiles.id")
+        .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table.string("imageUrl", 256);
@@ -30,12 +31,14 @@ exports.up = function(knex, Promise) {
         .integer("post_id")
         .unsigned()
         .references("posts.id")
+        .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table
         .integer("user_id")
         .unsigned()
         .references("profiles.id")
+        .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });
