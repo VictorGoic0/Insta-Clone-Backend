@@ -87,10 +87,10 @@ async function remove(id) {
 }
 
 async function update(item, id) {
-  const editedpost = await db("posts")
+  const editedPost = await db("posts")
     .where({ id })
     .update(item);
-  if (editedpost) {
+  if (editedPost) {
     const post = await findById(id);
     return post;
   }
