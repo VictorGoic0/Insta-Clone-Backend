@@ -28,14 +28,13 @@ module.exports = {
   },
   production: {
     client: "pg",
-    connection: dbConnection + "?ssl=true", //can be an object or a string
+    connection: dbConnection + "?ssl=true",
     pool: {
-      //default, may be given different values by db admin
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: "Posts", // default, created even if it's not listed in original migrations
+      tableName: "knex_migrations",
       directory: "./data/migrations"
     },
     seeds: {
