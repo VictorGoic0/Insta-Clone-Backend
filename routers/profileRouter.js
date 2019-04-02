@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const bcrypt = require("bcryptjs");
 const db = require("../data/helpers/profiles-model.js");
 
 router.get("/", async (req, res) => {
@@ -29,17 +29,23 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  const profile = req.body;
-  try {
-    const newProfile = await db.create(profile);
-    if (newProfile) {
-      res.status(201).json(newProfile);
+router.post("/register", async (req, res) => {
+  let { username, password } = req.body;
+  if (!username || !password) {
+    res.status(401).json({ message: "Please enter valid credentials" });
+  } else {
+    try {
+      const hash = bcrypt.hashSync(password);
+      password = hash;
+      const newProfile = await db.create({ username, password });
+      if (newProfile) {
+        res.status(201).json(newProfile);
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: `Your profile could not be created ${error}.` });
     }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: `Your profile could not be created ${error}.` });
   }
 });
 
