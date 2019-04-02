@@ -1,3 +1,12 @@
+const localPgConnection = {
+  host: "localhost",
+  database: "instagram",
+  user: "victor",
+  password: "pass"
+};
+
+const dbConnection = process.env.DATABASE_URL || localPgConnection;
+
 module.exports = {
   development: {
     client: "sqlite3",
@@ -16,37 +25,21 @@ module.exports = {
         conn.run("PRAGMA foreign_keys = ON", done); // enforce FK
       }
     }
+  },
+  production: {
+    client: "pg",
+    connection: dbConnection + "?ssl=true", //can be an object or a string
+    pool: {
+      //default, may be given different values by db admin
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      tableName: "Posts", // default, created even if it's not listed in original migrations
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
+    }
   }
-
-  //   staging: {
-  //     client: "postgresql",
-  //     connection: {
-  //       database: "my_db",
-  //       user: "username",
-  //       password: "password"
-  //     },
-  //     pool: {
-  //       min: 2,
-  //       max: 10
-  //     },
-  //     migrations: {
-  //       tableName: "knex_migrations"
-  //     }
-  //   },
-
-  //   production: {
-  //     client: "postgresql",
-  //     connection: {
-  //       database: "my_db",
-  //       user: "username",
-  //       password: "password"
-  //     },
-  //     pool: {
-  //       min: 2,
-  //       max: 10
-  //     },
-  //     migrations: {
-  //       tableName: "knex_migrations"
-  //     }
-  //   }
 };
