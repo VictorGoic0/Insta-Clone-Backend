@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
         .string("username", 128)
         .notNullable()
         .unique();
-      table.string("password", 30).notNullable();
+      table.string("password", 100).notNullable();
       table
         .string("thumbnailUrl", 256)
         .defaultTo("https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg");
