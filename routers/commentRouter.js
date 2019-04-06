@@ -65,7 +65,6 @@ router.delete("/:id/comments/:comID", async (req, res) => {
 router.put("/:id/comments/:comID", async (req, res) => {
   const { comID } = req.params;
   const newComment = req.body;
-
   try {
     const editedComment = await db.update(newComment, comID);
     if (editedComment) {

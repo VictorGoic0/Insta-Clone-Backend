@@ -65,7 +65,9 @@ async function findById(id) {
 }
 
 async function create(item) {
-  const [id] = await db("posts").insert(item);
+  const [id] = await db("posts")
+    .insert(item)
+    .returning("id");
   if (id) {
     const post = await findById(id);
     if (post) {

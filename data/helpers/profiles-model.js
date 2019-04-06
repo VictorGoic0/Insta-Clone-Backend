@@ -29,7 +29,9 @@ async function findByUser(username) {
 }
 
 async function create(item) {
-  const [id] = await db("profiles").insert(item);
+  const [id] = await db("profiles")
+    .insert(item)
+    .returning("id");
   if (id) {
     const profile = await findById(id);
     if (profile) {

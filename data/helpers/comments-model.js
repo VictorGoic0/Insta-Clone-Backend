@@ -28,7 +28,9 @@ async function findById(id) {
 }
 
 async function create(item) {
-  const [id] = await db("comments").insert(item);
+  const [id] = await db("comments")
+    .insert(item)
+    .returning("id");
   if (id) {
     const comment = await findById(id);
     return comment;
