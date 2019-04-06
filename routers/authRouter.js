@@ -14,7 +14,9 @@ router.post("/register", async (req, res) => {
       const newUser = await db.create({ username, password });
       if (newUser) {
         const token = generateToken(newUser.id, username);
-        res.status(201).json({ message: `Welcome ${username}!`, token });
+        res
+          .status(201)
+          .json({ message: `Welcome ${username}!`, token, userID: newUser.id });
       }
     } catch (error) {
       res
@@ -33,7 +35,9 @@ router.post("/login", async (req, res) => {
       const user = await db.findByUser(username);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user.id, username);
-        res.status(201).json({ message: `Welcome ${username}!`, token });
+        res
+          .status(201)
+          .json({ message: `Welcome ${username}!`, token, userID: user.id });
       } else {
         res.status(401).json({ message: "Username or password is incorrect." });
       }
