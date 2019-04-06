@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const db = require("../data/helpers/profiles-model.js");
-const secret = process.env.SECRET || "It's a secret";
 
 router.get("/", async (req, res) => {
   try {
