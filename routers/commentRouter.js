@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const authorization = require("./authorization.js");
 
 const db = require("../data/helpers/comments-model.js");
 
@@ -30,7 +31,7 @@ router.get("/:id/comments/:comID", async (req, res) => {
   }
 });
 
-router.post("/:id/comments", async (req, res) => {
+router.post("/:id/comments", authorization, async (req, res) => {
   const comment = req.body;
   try {
     const newComment = await db.create(comment);
@@ -44,7 +45,7 @@ router.post("/:id/comments", async (req, res) => {
   }
 });
 
-router.delete("/:id/comments/:comID", async (req, res) => {
+router.delete("/:id/comments/:comID", authorization, async (req, res) => {
   const { comID } = req.params;
   try {
     const comment = await db.remove(comID);
@@ -62,7 +63,7 @@ router.delete("/:id/comments/:comID", async (req, res) => {
   }
 });
 
-router.put("/:id/comments/:comID", async (req, res) => {
+router.put("/:id/comments/:comID", authorization, async (req, res) => {
   const { comID } = req.params;
   const newComment = req.body;
   try {

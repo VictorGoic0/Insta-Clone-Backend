@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const authorization = require("./authorization.js");
 
 const db = require("../data/helpers/posts-model.js");
 
@@ -29,7 +30,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authorization, async (req, res) => {
   const post = req.body;
   try {
     const newPost = await db.create(post);
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authorization, async (req, res) => {
   const { id } = req.params;
   try {
     const post = await db.remove(id);
@@ -61,7 +62,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authorization, async (req, res) => {
   const { id } = req.params;
   const newPost = req.body;
 

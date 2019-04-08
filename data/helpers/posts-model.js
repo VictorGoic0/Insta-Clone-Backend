@@ -70,9 +70,7 @@ async function create(item) {
     .returning("id");
   if (id) {
     const post = await findById(id);
-    if (post) {
-      return post;
-    }
+    return post;
   }
 }
 

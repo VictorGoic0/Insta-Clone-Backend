@@ -34,9 +34,7 @@ async function create(item) {
     .returning("id");
   if (id) {
     const profile = await findById(id);
-    if (profile) {
-      return profile;
-    }
+    return profile;
   }
 }
 
