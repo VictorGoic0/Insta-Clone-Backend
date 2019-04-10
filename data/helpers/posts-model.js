@@ -31,7 +31,7 @@ async function find() {
       .where({
         "comments.post_id": post.id
       })
-      .limit(3);
+      .limit(6);
   }
   return posts;
 }
