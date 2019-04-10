@@ -9,7 +9,15 @@ module.exports = {
 };
 
 async function find(id) {
-  const comments = await db("comments").where({ post_id: id });
+  const comments = await db("comments")
+    .select({
+      id: "comments.id",
+      text: "comments.text",
+      username: "profiles.username",
+      thumbnailUrl: "profiles.thumbnailUrl"
+    })
+    .innerJoin("profiles", "comments.user_id", "profiles.id")
+    .where({ post_id: id });
   return comments;
 }
 
