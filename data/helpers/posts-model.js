@@ -20,7 +20,7 @@ async function find() {
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id");
   for (post of posts) {
-    post.comments = await db("comments")
+    const comments = await db("comments")
       .select({
         id: "comments.id",
         username: "profiles.username",
@@ -30,8 +30,14 @@ async function find() {
       .innerJoin("profiles", "comments.user_id", "profiles.id")
       .where({
         "comments.post_id": post.id
-      })
-      .limit(4);
+      });
+    if (comments.length <= 4) {
+      post.comments = comments;
+      post.showMore = false;
+    } else {
+      post.comments = comments.slice(0, 4);
+      post.showMore = true;
+    }
   }
   return posts;
 }

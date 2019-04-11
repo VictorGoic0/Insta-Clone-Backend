@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
         .onUpdate("CASCADE");
       table.string("imageUrl", 256);
       table.string("description", 500);
-      table.integer("likes");
+      table.integer("likes").defaultTo(0);
     })
     .createTable("comments", table => {
       table.increments();
