@@ -43,7 +43,7 @@ async function find() {
 }
 
 async function findById(id) {
-  const post = await db("posts")
+  const postContent = db("posts")
     .select({
       id: "posts.id",
       user_id: "posts.user_id",
@@ -56,7 +56,7 @@ async function findById(id) {
     .innerJoin("profiles", "posts.user_id", "profiles.id")
     .where({ "posts.id": id })
     .first();
-  post.comments = await db("comments")
+  const postComments = db("comments")
     .select({
       id: "comments.id",
       username: "profiles.username",
@@ -67,7 +67,12 @@ async function findById(id) {
     .where({
       "comments.post_id": id
     });
-  return post;
+  const retrieval = await Promise.all([postContent, postComments]);
+  if (retrieval[0]) {
+    const post = retrieval[0];
+    const comments = retrieval[1];
+    return { ...post, comments };
+  }
 }
 
 async function create(item) {
