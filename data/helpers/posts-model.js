@@ -28,6 +28,7 @@ async function find() {
         thumbnailUrl: "profiles.thumbnailUrl"
       })
       .innerJoin("profiles", "comments.user_id", "profiles.id")
+      .orderBy("id", "asc")
       .where({
         "comments.post_id": post.id
       });
@@ -64,6 +65,7 @@ async function findById(id) {
       thumbnailUrl: "profiles.thumbnailUrl"
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
+    .orderBy("id", "asc")
     .where({
       "comments.post_id": id
     });
