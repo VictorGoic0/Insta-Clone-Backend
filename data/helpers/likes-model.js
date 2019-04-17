@@ -15,7 +15,7 @@ async function findById(id) {
 
 async function create(item) {
   const [id] = await db("likes")
-    .insert({ post_id: item.post_id, user_id: item.user_id })
+    .insert(item)
     .returning("id");
   if (id) {
     const like = await findById(id);
