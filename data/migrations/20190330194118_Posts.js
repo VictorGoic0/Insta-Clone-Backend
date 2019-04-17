@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .unique();
       table.string("password", 100).notNullable();
-      table.timestamps();
+      table.timestamps(true, true);
       table
         .string("thumbnailUrl", 256)
         .defaultTo("https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg");
@@ -21,7 +21,7 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-      table.timestamps();
+      table.timestamps(true, true);
       table.string("imageUrl", 256);
       table.string("description", 500);
       table.integer("likes").defaultTo(0);
@@ -29,7 +29,7 @@ exports.up = function(knex, Promise) {
     .createTable("comments", table => {
       table.increments();
       table.string("text", 500).notNullable();
-      table.timestamps();
+      table.timestamps(true, true);
       table
         .integer("post_id")
         .unsigned()
