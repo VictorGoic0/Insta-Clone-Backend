@@ -10,8 +10,8 @@ const authorization = require("./routers/authorization");
 const server = express();
 
 server.use(helmet());
-server.use(express.json());
 server.use(cors());
+server.use(express.json());
 server.use("/api/posts", postRouter, commentRouter);
 server.use("/api/profiles", authorization, profileRouter);
 server.use("/auth", authRouter);

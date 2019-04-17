@@ -69,6 +69,16 @@ exports.seed = function(knex, Promise) {
       text: "Can't wait to try it!",
       post_id: 4,
       user_id: 15
+    },
+    {
+      text: "This tournament was amaaazing",
+      post_id: 5,
+      user_id: 14
+    },
+    {
+      text: "s1mple is officially the #GOAT",
+      post_id: 5,
+      user_id: 10
     }
   ]);
 };
