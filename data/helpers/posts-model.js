@@ -21,7 +21,15 @@ async function find() {
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id")
     .leftJoin("likes", "posts.id", "likes.post_id")
-    .groupBy("posts.id")
+    .groupBy(
+      "posts.id",
+      "posts.user_id",
+      "posts.imageUrl",
+      "posts.created_at",
+      "posts.updated_at",
+      "profiles.username",
+      "profiles.thumbnailUrl"
+    )
     .count("likes.id as likes");
   for (post of posts) {
     const comments = await db("comments")
@@ -65,6 +73,15 @@ async function findById(id) {
     .where({ "posts.id": id })
     .first()
     .leftJoin("likes", "posts.id", "likes.post_id")
+    .groupBy(
+      "posts.id",
+      "posts.user_id",
+      "posts.imageUrl",
+      "posts.created_at",
+      "posts.updated_at",
+      "profiles.username",
+      "profiles.thumbnailUrl"
+    )
     .count("likes.id as likes");
   const postComments = db("comments")
     .select({
