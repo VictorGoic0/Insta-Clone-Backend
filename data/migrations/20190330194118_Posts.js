@@ -24,7 +24,6 @@ exports.up = function(knex, Promise) {
       table.timestamps(true, true);
       table.string("imageUrl", 256);
       table.string("description", 500);
-      table.integer("likes").defaultTo(0);
     })
     .createTable("comments", table => {
       table.increments();
