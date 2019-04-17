@@ -44,6 +44,24 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+    })
+    .createTable("likes", table => {
+      table.increments();
+      table.timestamps(true, true);
+      table
+        .integer("post_id")
+        .unsigned()
+        .references("posts.id")
+        .notNullable()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      table
+        .integer("user_id")
+        .unsigned()
+        .references("profiles.id")
+        .notNullable()
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     });
 };
 
