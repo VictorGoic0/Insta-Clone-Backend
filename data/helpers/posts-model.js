@@ -30,7 +30,8 @@ async function find() {
       "profiles.username",
       "profiles.thumbnailUrl"
     )
-    .count("likes.id as likes");
+    .count("likes.id as likes")
+    .orderBy("posts.id", "asc");
   for (post of posts) {
     const comments = await db("comments")
       .select({
