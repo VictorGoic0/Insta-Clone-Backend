@@ -15,6 +15,8 @@ async function find() {
       user_id: "posts.user_id",
       imageUrl: "posts.imageUrl",
       likes: "posts.likes",
+      createdAt: "posts.created_at",
+      updatedAt: "posts.updated_at",
       username: "profiles.username",
       thumbnailUrl: "profiles.thumbnailUrl"
     })
@@ -25,7 +27,9 @@ async function find() {
         id: "comments.id",
         username: "profiles.username",
         text: "comments.text",
-        thumbnailUrl: "profiles.thumbnailUrl"
+        thumbnailUrl: "profiles.thumbnailUrl",
+        createdAt: "comments.created_at",
+        updatedAt: "comments.updated_at"
       })
       .innerJoin("profiles", "comments.user_id", "profiles.id")
       .orderBy("id", "asc")
@@ -52,7 +56,9 @@ async function findById(id) {
       likes: "posts.likes",
       username: "profiles.username",
       thumbnailUrl: "profiles.thumbnailUrl",
-      description: "posts.description"
+      description: "posts.description",
+      createdAt: "posts.created_at",
+      updatedAt: "posts.updated_at"
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id")
     .where({ "posts.id": id })
@@ -62,7 +68,9 @@ async function findById(id) {
       id: "comments.id",
       username: "profiles.username",
       text: "comments.text",
-      thumbnailUrl: "profiles.thumbnailUrl"
+      thumbnailUrl: "profiles.thumbnailUrl",
+      createdAt: "comments.created_at",
+      updatedAt: "comments.updated_at"
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
     .orderBy("id", "asc")

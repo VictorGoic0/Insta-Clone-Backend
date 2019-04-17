@@ -14,7 +14,9 @@ async function find(id) {
       id: "comments.id",
       text: "comments.text",
       username: "profiles.username",
-      thumbnailUrl: "profiles.thumbnailUrl"
+      thumbnailUrl: "profiles.thumbnailUrl",
+      createdAt: "comments.created_at",
+      updatedAt: "comments.updated_at"
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
     .orderBy("id", "asc")
@@ -28,7 +30,9 @@ async function findById(id) {
       id: "comments.id",
       text: "comments.text",
       username: "profiles.username",
-      thumbnailUrl: "profiles.thumbnailUrl"
+      thumbnailUrl: "profiles.thumbnailUrl",
+      createdAt: "comments.created_at",
+      updatedAt: "comments.updated_at"
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
     .where({ "comments.id": id })
