@@ -30,7 +30,7 @@ exports.seed = function(knex, Promise) {
       likes: 50000
     },
     {
-      user_id: 14,
+      user_id: 13,
       description: "Congrats to the broys and the #GOAT",
       imageUrl:
         "https://cdn.vs.com.br/webedia-temp/1543339173760-naviliftesl_2517793b.jpg",
