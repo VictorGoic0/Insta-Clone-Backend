@@ -7,11 +7,15 @@ router.post("/", async (req, res) => {
   try {
     const deletedLike = await db.remove(post_id, user_id);
     if (deletedLike) {
-      res.status(200).json({ message: "Like modified.", liked: false });
+      res
+        .status(200)
+        .json({ message: "Like modified.", liked: false, post_id });
     } else {
       const newLike = db.create(req.body);
       if (newLike) {
-        res.status(200).json({ message: "Like created.", liked: true });
+        res
+          .status(200)
+          .json({ message: "Like created.", liked: true, post_id });
       }
     }
   } catch (error) {
