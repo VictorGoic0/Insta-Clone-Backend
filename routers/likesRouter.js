@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     } else {
       const newLike = db.create(req.body);
       if (newLike) {
-        res.status(200).json({ message: "Like created", liked: true });
+        res.status(200).json({ message: "Like created.", liked: true });
       }
     }
   } catch (error) {
