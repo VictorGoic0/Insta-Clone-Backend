@@ -18,7 +18,7 @@
 
 - [Backend Deployment](https://goico-insta-backend.herokuapp.com/)
 
-# Dependencies Used <a name="depUsed></a>
+# Dependencies Used <a name="depUsed"></a>
 
 - Node
 - Express
@@ -33,15 +33,15 @@
 - Dotenv
 - Nodemon (Development)
 
-# Running The Project <a name="runningProject></a>
+# Running The Project <a name="runningProject"></a>
 
 If you would like to run this project locally, `cd` into the repository and run `yarn`. This will install the needed dependencies. Next you can run either `yarn start` to run the server using node or `yarn server` to run the server using nodemon. The purpose of using nodemon is to restart the server any time you make a change and save.
 
-# Restrictions <a name="restrictions></a>
+# Restrictions <a name="restrictions"></a>
 
 If you would like to make a request to the profiles endpoint, a valid **JSON web token** is required in your request headers.authorization. For posts and comments, making a **GET** request does not require a **JSON web token**, but **POST, DEL,** and **PUT** requests do.
 
-# Description <a name="description></a>
+# Description <a name="description"></a>
 
 This project is a RESTful API built using Node and Express. The purpose of this project is to provide a Backend for my Insta-Clone client. User registration, login, post and comment creation, liking, deleting, fetching, or editing, are all handled here. This project was deployed on `Heroku`.
 
