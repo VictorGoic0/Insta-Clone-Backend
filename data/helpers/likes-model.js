@@ -27,7 +27,7 @@ async function remove(post_id, user_id) {
     .where({ post_id, user_id })
     .del()
     .returning("*");
-  if (deleted.post_id) {
+  if (deleted) {
     return deleted;
   } else {
     return null;
