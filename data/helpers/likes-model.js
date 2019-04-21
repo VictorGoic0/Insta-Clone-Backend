@@ -23,7 +23,7 @@ async function create(item) {
 }
 
 async function remove(post_id, user_id) {
-  const deleted = await db("likes")
+  const [deleted] = await db("likes")
     .where({ post_id, user_id })
     .del()
     .returning("*");
