@@ -29,7 +29,5 @@ async function remove(post_id, user_id) {
     .returning("*");
   if (deleted) {
     return deleted;
-  } else {
-    return null;
   }
 }
