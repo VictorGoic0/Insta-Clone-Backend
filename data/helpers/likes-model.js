@@ -6,31 +6,25 @@ module.exports = {
   remove
 };
 
-async function findById(id) {
+async function findById(post_id, user_id) {
   const like = await db("likes")
-    .where({ id })
+    .where({ post_id, user_id })
     .first();
   return like;
 }
 
 async function create(item) {
-  const [id] = await db("likes")
+  const [like] = await db("likes")
     .insert(item)
-    .returning("id");
-  if (id) {
-    const like = await findById(id);
+    .returning("*");
+  if (like) {
     return like;
   }
 }
 
-async function remove(id) {
-  const like = await findById(id);
-  if (like) {
-    const deleted = await db("likes")
-      .where({ id })
-      .del();
-    if (deleted) {
-      return like;
-    }
-  }
+async function remove(post_id, user_id) {
+  return await db("likes")
+    .where({ post_id, user_id })
+    .del()
+    .returning("*");
 }
