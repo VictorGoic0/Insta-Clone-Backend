@@ -66,6 +66,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.schema
+    .dropTableIfExists("likes")
     .dropTableIfExists("comments")
     .dropTableIfExists("posts")
     .dropTableIfExists("profiles");
