@@ -130,7 +130,7 @@ Body:
 
 ---
 
-# /api/posts <a name="postsEndpoints"></a>
+# api/posts <a name="postsEndpoints"></a>
 
 ---
 
@@ -238,6 +238,7 @@ Body: none
         ],
         "showMore": true
     },
+]
 ```
 
 ---
@@ -247,7 +248,9 @@ Body: none
 ##### Required:
 
 **Header**: default
+
 **URL Params**: ID of post
+
 **Body**: none
 
 ##### Example Request:
@@ -331,11 +334,14 @@ Body: none
 ##### Required:
 
 **Header**: JSON web token
+
 **URL Params**: none
+
 **Body**:
-user_id: integer (FK referring to PK of profiles table. Who is making the post?)
-imageUrl: string, up to 256 characters
-description: string, up to 500 characters (optional)
+
+- user_id: integer (FK referring to PK of profiles table. Who is making the post?)
+- imageUrl: string, up to 256 characters
+- description: string, up to 500 characters (optional)
 
 ##### Example Request:
 
@@ -374,10 +380,13 @@ Body:
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of post
+
 **Body**:
-imageUrl: string, up to 256 characters (optional)
-description: string, up to 500 characters (optional)
+
+- imageUrl: string, up to 256 characters (optional)
+- description: string, up to 500 characters (optional)
 
 ##### Example Request:
 
@@ -414,7 +423,9 @@ Body:
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of post
+
 **Body**: none
 
 ##### Example Request:
@@ -466,7 +477,9 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: default
+
 **URL Params**: ID of post
+
 **Body**: none
 
 ##### Example Request:
@@ -539,7 +552,9 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: default
+
 **URL Params**: ID of post, ID of comment
+
 **Body**: none
 
 ##### Example Request:
@@ -570,11 +585,14 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of post
+
 **Body**:
-user_id: integer (FK referring to PK of profiles table. Who is making the comment?)
-post_id: integer (FK referring to PK of posts table. Which post does this comment belong to?)
-text: string, up to 500 characters (optional)
+
+- user_id: integer (FK referring to PK of profiles table. Who is making the comment?)
+- post_id: integer (FK referring to PK of posts table. Which post does this comment belong to?)
+- text: string, up to 500 characters (optional)
 
 ##### Example Request:
 
@@ -609,8 +627,10 @@ Body:
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of post, ID of comment
 **Body**:
+
 text: string, up to 500 characters (optional)
 
 ##### Example Request:
@@ -644,7 +664,9 @@ Body:
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of post, ID of comment
+
 **Body**: none
 
 ##### Example Request:
@@ -670,7 +692,7 @@ Body: none
 
 ---
 
-# /api/profiles <a name="profilesEndpoints"></a>
+# api/profiles <a name="profilesEndpoints"></a>
 
 ---
 
@@ -679,7 +701,9 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: none
+
 **Body**: none
 
 ##### Example Request:
@@ -720,7 +744,9 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of profile
+
 **Body**: none
 
 ##### Example Request:
@@ -751,7 +777,9 @@ Body: none
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of profile
+
 **Body**: Field that you are editing (username, password, or thumbnailUrl)
 
 ##### Example Request:
@@ -783,7 +811,9 @@ Body:
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: ID of profile
+
 **Body**: none
 
 ##### Example Request:
@@ -809,19 +839,22 @@ Body: none
 
 ---
 
-# /api/likes <a name="likesEndpoints"></a>
+# api/likes <a name="likesEndpoints"></a>
 
 ---
 
-#### POST `api/likes`
+#### POST `/api/likes`
 
 ##### Required (unless marked optional):
 
 **Header**: JSON web token
+
 **URL Params**: none
+
 **Body**:
-post_id: ID of post that is being liked.
-user_id: ID of user who is liking that post.
+
+- post_id: ID of post that is being liked.
+- user_id: ID of user who is liking that post.
 
 ##### Example Request:
 
