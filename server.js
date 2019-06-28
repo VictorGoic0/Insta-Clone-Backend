@@ -17,5 +17,12 @@ server.use("/api/posts", postRouter, commentRouter);
 server.use("/api/profiles", authorization, profileRouter);
 server.use("/api/likes", authorization, likesRouter);
 server.use("/auth", authRouter);
+server.get("/", (req, res) => {
+  res
+    .status(200)
+    .send(
+      "This is not a valid endpoint! Try /api/posts if you would like to see a list of posts."
+    );
+});
 
 module.exports = server;
