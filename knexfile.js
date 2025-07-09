@@ -33,14 +33,8 @@ module.exports = {
       ssl: { rejectUnauthorized: false },
     },
     pool: {
-      min: 0,
-      max: 3,
-      acquireTimeoutMillis: 60000,
-      createTimeoutMillis: 60000,
-      destroyTimeoutMillis: 5000,
-      idleTimeoutMillis: 10000,
-      reapIntervalMillis: 1000,
-      createRetryIntervalMillis: 100,
+      min: 2,
+      max: 10,
     },
     migrations: {
       tableName: "knex_migrations",
