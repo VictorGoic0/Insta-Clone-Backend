@@ -76,7 +76,7 @@ async function find() {
 }
 
 async function findById(id) {
-  const postContent = db("posts")
+  const postContent = await db("posts")
     .select({
       id: "posts.id",
       user_id: "posts.user_id",
@@ -88,9 +88,8 @@ async function findById(id) {
       updatedAt: "posts.updated_at",
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id")
-    .where({ "posts.id": id })
-    .first()
     .leftJoin("likes", "posts.id", "likes.post_id")
+    .where({ "posts.id": id })
     .groupBy(
       "posts.id",
       "posts.user_id",
@@ -100,8 +99,10 @@ async function findById(id) {
       "profiles.username",
       "profiles.thumbnailUrl"
     )
-    .count("likes.id as likes");
-  const postComments = db("comments")
+    .count("likes.id as likes")
+    .first();
+
+  const postComments = await db("comments")
     .select({
       id: "comments.id",
       username: "profiles.username",
@@ -115,12 +116,11 @@ async function findById(id) {
     .where({
       "comments.post_id": id,
     });
-  const retrieval = await Promise.all([postContent, postComments]);
-  if (retrieval[0]) {
-    const post = retrieval[0];
-    const comments = retrieval[1];
-    return { ...post, comments };
+
+  if (postContent) {
+    return { ...postContent, comments: postComments };
   }
+  return null;
 }
 
 async function create(item) {
