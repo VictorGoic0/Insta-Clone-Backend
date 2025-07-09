@@ -2,7 +2,7 @@ const localPgConnection = {
   host: "localhost",
   database: "instagram",
   user: "victor",
-  password: "pass"
+  password: "pass",
 };
 
 const dbConnection = process.env.DATABASE_URL || localPgConnection;
@@ -11,34 +11,43 @@ module.exports = {
   development: {
     client: "sqlite3",
     connection: {
-      filename: "./data/instagram.sqlite3"
+      filename: "./data/instagram.sqlite3",
     },
     useNullAsDefault: true,
     migrations: {
-      directory: "./data/migrations"
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: "./data/seeds"
+      directory: "./data/seeds",
     },
     pool: {
       afterCreate: (conn, done) => {
         conn.run("PRAGMA foreign_keys = ON", done); // enforce FK
-      }
-    }
+      },
+    },
   },
   production: {
     client: "pg",
-    connection: dbConnection + "?ssl=true",
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+    },
     pool: {
-      min: 2,
-      max: 10
+      min: 0,
+      max: 7,
+      acquireTimeoutMillis: 30000,
+      createTimeoutMillis: 30000,
+      destroyTimeoutMillis: 5000,
+      idleTimeoutMillis: 30000,
+      reapIntervalMillis: 1000,
+      createRetryIntervalMillis: 100,
     },
     migrations: {
       tableName: "knex_migrations",
-      directory: "./data/migrations"
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: "./data/seeds"
-    }
-  }
+      directory: "./data/seeds",
+    },
+  },
 };
