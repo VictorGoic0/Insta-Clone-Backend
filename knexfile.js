@@ -30,7 +30,7 @@ module.exports = {
     client: "pg",
     connection: {
       connectionString: process.env.DATABASE_URL,
-      ssl: true,
+      ssl: { rejectUnauthorized: false },
     },
     pool: {
       min: 0, // Set min to 0 to allow connections to close
