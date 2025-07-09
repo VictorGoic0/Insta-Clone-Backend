@@ -5,7 +5,7 @@ module.exports = {
   findById,
   create,
   remove,
-  update
+  update,
 };
 
 async function find() {
@@ -17,7 +17,7 @@ async function find() {
       createdAt: "posts.created_at",
       updatedAt: "posts.updated_at",
       username: "profiles.username",
-      thumbnailUrl: "profiles.thumbnailUrl"
+      thumbnailUrl: "profiles.thumbnailUrl",
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id")
     .leftJoin("likes", "posts.id", "likes.post_id")
@@ -32,21 +32,37 @@ async function find() {
     )
     .count("likes.id as likes")
     .orderBy("posts.id", "asc");
-  for (post of posts) {
-    const comments = await db("comments")
-      .select({
-        id: "comments.id",
-        username: "profiles.username",
-        text: "comments.text",
-        thumbnailUrl: "profiles.thumbnailUrl",
-        createdAt: "comments.created_at",
-        updatedAt: "comments.updated_at"
-      })
-      .innerJoin("profiles", "comments.user_id", "profiles.id")
-      .orderBy("id", "asc")
-      .where({
-        "comments.post_id": post.id
-      });
+
+  // Get all comments for all posts in a single query
+  const allComments = await db("comments")
+    .select({
+      id: "comments.id",
+      post_id: "comments.post_id",
+      username: "profiles.username",
+      text: "comments.text",
+      thumbnailUrl: "profiles.thumbnailUrl",
+      createdAt: "comments.created_at",
+      updatedAt: "comments.updated_at",
+    })
+    .innerJoin("profiles", "comments.user_id", "profiles.id")
+    .orderBy("id", "asc")
+    .whereIn(
+      "comments.post_id",
+      posts.map((p) => p.id)
+    );
+
+  // Group comments by post_id
+  const commentsByPost = {};
+  allComments.forEach((comment) => {
+    if (!commentsByPost[comment.post_id]) {
+      commentsByPost[comment.post_id] = [];
+    }
+    commentsByPost[comment.post_id].push(comment);
+  });
+
+  // Attach comments to posts
+  posts.forEach((post) => {
+    const comments = commentsByPost[post.id] || [];
     if (comments.length <= 4) {
       post.comments = comments;
       post.showMore = false;
@@ -54,7 +70,8 @@ async function find() {
       post.comments = comments.slice(0, 4);
       post.showMore = true;
     }
-  }
+  });
+
   return posts;
 }
 
@@ -68,7 +85,7 @@ async function findById(id) {
       thumbnailUrl: "profiles.thumbnailUrl",
       description: "posts.description",
       createdAt: "posts.created_at",
-      updatedAt: "posts.updated_at"
+      updatedAt: "posts.updated_at",
     })
     .innerJoin("profiles", "posts.user_id", "profiles.id")
     .where({ "posts.id": id })
@@ -91,12 +108,12 @@ async function findById(id) {
       text: "comments.text",
       thumbnailUrl: "profiles.thumbnailUrl",
       createdAt: "comments.created_at",
-      updatedAt: "comments.updated_at"
+      updatedAt: "comments.updated_at",
     })
     .innerJoin("profiles", "comments.user_id", "profiles.id")
     .orderBy("id", "asc")
     .where({
-      "comments.post_id": id
+      "comments.post_id": id,
     });
   const retrieval = await Promise.all([postContent, postComments]);
   if (retrieval[0]) {
@@ -107,9 +124,7 @@ async function findById(id) {
 }
 
 async function create(item) {
-  const [id] = await db("posts")
-    .insert(item)
-    .returning("id");
+  const [id] = await db("posts").insert(item).returning("id");
   if (id) {
     const post = await findById(id);
     return post;
@@ -119,9 +134,7 @@ async function create(item) {
 async function remove(id) {
   const post = await findById(id);
   if (post) {
-    const deleted = await db("posts")
-      .where({ id })
-      .del();
+    const deleted = await db("posts").where({ id }).del();
     if (deleted) {
       return post;
     }
@@ -129,9 +142,7 @@ async function remove(id) {
 }
 
 async function update(item, id) {
-  const editedPost = await db("posts")
-    .where({ id })
-    .update(item);
+  const editedPost = await db("posts").where({ id }).update(item);
   if (editedPost) {
     const post = await findById(id);
     return post;
