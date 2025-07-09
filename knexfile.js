@@ -33,8 +33,10 @@ module.exports = {
       ssl: { rejectUnauthorized: false },
     },
     pool: {
-      min: 2,
-      max: 10,
+      min: 0, // Set min to 0 to allow connections to close
+      max: 10, // Keep max conservative for Hobby-tier databases
+      acquireTimeoutMillis: 60000, // Increase timeout to 60 seconds
+      propagateCreateError: false, // Prevent throwing errors on initial connection failure
     },
     migrations: {
       tableName: "knex_migrations",
