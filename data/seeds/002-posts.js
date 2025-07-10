@@ -16,7 +16,7 @@ exports.seed = function (knex) {
       user_id: 3,
       description: "The view here is pretty good.",
       imageUrl:
-        "https://assets.milestoneinternet.com/cdn-cgi/image/f=auto/aramark-parent/yosemite-national-park/site-images/yosemite-national-park-lodging-and-activities-california-united-states-showcasing-a-picturesque-natural-landscape.jpeg?cropY=411&cropW=3006&cropH=1097&width=800&height=292",
+        "https://media.istockphoto.com/id/509307146/photo/yosemite-national-park.jpg?s=612x612&w=0&k=20&c=sxrrtLlkGJOCqc2f_Q8lKfVXw_pJIm3-2Rl0Jd47g40=",
     },
     {
       user_id: 4,
