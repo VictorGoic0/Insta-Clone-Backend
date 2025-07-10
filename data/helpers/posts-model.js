@@ -107,9 +107,9 @@ async function findById(id) {
 }
 
 async function create(item) {
-  const [id] = await db("posts").insert(item).returning("id");
-  if (id) {
-    const post = await findById(id);
+  const [row] = await db("posts").insert(item).returning("id");
+  if (row && row.id) {
+    const post = await findById(row.id);
     return post;
   }
 }

@@ -6,7 +6,7 @@ module.exports = {
   findByUser,
   create,
   remove,
-  update
+  update,
 };
 
 async function find() {
@@ -15,25 +15,19 @@ async function find() {
 }
 
 async function findById(id) {
-  const profile = await db("profiles")
-    .where({ "profiles.id": id })
-    .first();
+  const profile = await db("profiles").where({ "profiles.id": id }).first();
   return profile;
 }
 
 async function findByUser(username) {
-  const profile = await db("profiles")
-    .where({ username })
-    .first();
+  const profile = await db("profiles").where({ username }).first();
   return profile;
 }
 
 async function create(item) {
-  const [id] = await db("profiles")
-    .insert(item)
-    .returning("id");
-  if (id) {
-    const profile = await findById(id);
+  const [row] = await db("profiles").insert(item).returning("id");
+  if (row && row.id) {
+    const profile = await findById(row.id);
     return profile;
   }
 }
@@ -41,9 +35,7 @@ async function create(item) {
 async function remove(id) {
   const profile = await findById(id);
   if (profile) {
-    const deleted = await db("profiles")
-      .where({ id })
-      .del();
+    const deleted = await db("profiles").where({ id }).del();
     if (deleted) {
       return profile;
     }
@@ -51,9 +43,7 @@ async function remove(id) {
 }
 
 async function update(item, id) {
-  const editedProfile = await db("profiles")
-    .where({ id })
-    .update(item);
+  const editedProfile = await db("profiles").where({ id }).update(item);
   if (editedProfile) {
     const profile = await findById(id);
     return profile;
