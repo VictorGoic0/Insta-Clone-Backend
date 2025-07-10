@@ -9,7 +9,9 @@ exports.up = function (knex) {
         table.timestamps(true, true);
         table
           .string("thumbnailUrl", 256)
-          .defaultTo("https://pbs.twimg.com/media/C8QsNInXUAAyjZQ.jpg");
+          .defaultTo(
+            "https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
+          );
       })
       .createTable("posts", (table) => {
         table.increments();
